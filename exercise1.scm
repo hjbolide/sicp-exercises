@@ -26,6 +26,52 @@
 ;; exercise1.5
 ; Applicative order will evaluate all operand first, program will not stop.
 
+;; sample sqrt
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
 ;; exercise1.6
 ; new-if is a function, the first thing a function is called is to evaluate all arguments. That results in dead end.
+
+;; exercise1.7
+(define (good-enough? guess x)
+  (< (/ (abs (- (improve guess x) guess)) guess) 0.0001))
+
+;; exercise1.8
+(define (cube-iter guess x)
+  (if (cube-good? guess x)
+      guess
+      (cube-iter (improve-cube guess x) x)))
+
+(define (cube-good? guess x)
+  (< (/ (abs (- (improve-cube guess x) guess)) guess) 0.0001))
+
+(define (improve-cube y x)
+  (/ (+ (/ x (square y)) (* 2 y)) 3))
+
+(define (cube-root x)
+  (cube-iter 1.0 x))
+
+
+
+
+
+
+
+
 
